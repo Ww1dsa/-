@@ -1,0 +1,39 @@
+edition: 3.0.0
+name: pyweb-fc
+access: default
+
+vars:
+  region: cn-hangzhou
+  service:
+    name: pyweb-service
+
+resources:
+  pyweb:
+    component: fc3
+    props:
+      region: ${vars.region}
+      service: ${vars.service.name}
+      functionName: pyweb-rumor-detection
+      description: FastAPI rumor detection web app
+      runtime: custom-container
+      timeout: 60
+      memorySize: 512
+      diskSize: 512
+      customContainerConfig:
+        image: ${env(IMAGE_URI)}
+        port: 9000
+      triggers:
+        - triggerName: httpTrigger
+          triggerType: http
+          qualifier: LATEST
+          triggerConfig:
+            authType: anonymous
+            disableURLInternet: false
+            methods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+              - PATCH
+              - HEAD
+              - OPTIONS
