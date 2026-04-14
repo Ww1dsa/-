@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ title or '暗流哨卫' }}</title>
+    <link rel="stylesheet" href="/static/site.css" />
+</head>
+<body>
+    <header class="topbar">
+        <div class="wrap nav">
+            <a href="/" class="brand">暗流哨卫</a>
+            <nav>
+                <a href="/">首页</a>
+                <a href="/knowledge">知识库</a>
+                <a href="/report">举报投稿</a>
+                <a href="/forum">论坛</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="wrap page">
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>

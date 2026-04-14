@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="hero">
+    <h1>谣言检测中心</h1>
+    <p>文本与媒体双通道检测（Python 演示版）</p>
+</section>
+
+<div class="grid two">
+    <section class="card">
+        <h2>谣言文本快速检测</h2>
+        <form method="post" action="/detect/text">
+            <textarea name="rumor_text" rows="5" placeholder="请粘贴待检测文本">{{ rumor_text or '' }}</textarea>
+            <button type="submit">立即检测</button>
+        </form>
+
+        {% if text_result %}
+        <div class="result {{ 'danger' if text_result.level == '高风险' else 'warn' if text_result.level == '中风险' else 'safe' }}">
+            <p><strong>风险等级：</strong>{{ text_result.level }}</p>
+            <p><strong>置信分：</strong>{{ text_result.score }}</p>
+            <p><strong>说明：</strong>{{ text_result.message }}</p>
+            {% if text_result.matched %}
+            <p><strong>触发关键词：</strong>{{ text_result.matched|join('、') }}</p>
+            {% endif %}
+        </div>
+        {% endif %}
+    </section>
+
+    <section class="card">
+        <h2>虚假图片视频鉴别</h2>
+        <form method="post" action="/detect/media" enctype="multipart/form-data">
+            <input type="file" name="media_file" accept="image/*,video/*" required />
+            <button type="submit">上传并鉴别</button>
+        </form>
+
+        {% if media_result %}
+        <div class="result {{ 'safe' if media_result.ok else 'danger' }}">
+            <p><strong>结果：</strong>{{ media_result.message }}</p>
+            {% if media_result.saved_path %}
+            <p><strong>文件已保存：</strong>{{ media_result.saved_path }}</p>
+            {% endif %}
+        </div>
+        {% endif %}
+    </section>
+</div>
+{% endblock %}

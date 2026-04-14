@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="card narrow">
+    <h1>谣言举报投稿</h1>
+    <p>欢迎提交线索，我们会尽快核查。</p>
+
+    {% if success %}
+    <div class="result safe">
+        提交成功，感谢你的反馈。
+    </div>
+    {% endif %}
+
+    <form method="post" action="/report">
+        <label>标题</label>
+        <input type="text" name="title" maxlength="120" required />
+
+        <label>内容</label>
+        <textarea name="content" rows="7" maxlength="2000" required></textarea>
+
+        <label>联系方式（可选）</label>
+        <input type="text" name="contact" maxlength="120" />
+
+        <button type="submit">提交举报</button>
+    </form>
+</section>
+{% endblock %}

@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="card">
+    <h1>谣言知识库</h1>
+    <p>常见套路、权威渠道、法规与鉴谣步骤。</p>
+</section>
+
+<section class="card mt">
+    <h2>常见谣言套路</h2>
+    <div class="grid two">
+    {% for item in patterns %}
+        <article class="subcard">
+            <h3>{{ item.title }}</h3>
+            <p>{{ item.summary }}</p>
+            <p>{{ item.content }}</p>
+            <p class="meta">标签：{{ item.tags|join('、') }}</p>
+            <p><strong>案例：</strong>{{ item.case }}</p>
+        </article>
+    {% endfor %}
+    </div>
+</section>
+
+<section class="card mt">
+    <h2>权威渠道</h2>
+    <table>
+        <thead>
+            <tr><th>机构</th><th>类型</th><th>联系方式</th><th>链接</th></tr>
+        </thead>
+        <tbody>
+            {% for c in channels %}
+            <tr>
+                <td>{{ c.name }}</td>
+                <td>{{ c.type }}</td>
+                <td>{{ c.contact }}</td>
+                <td><a href="{{ c.url }}" target="_blank">访问</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</section>
+
+<section class="card mt">
+    <h2>法律法规</h2>
+    {% for law in laws %}
+    <article class="subcard">
+        <h3>{{ law.name }}</h3>
+        <p><strong>条款：</strong>{{ law.clause }}</p>
+        <p><strong>案例：</strong>{{ law.case }}</p>
+    </article>
+    {% endfor %}
+</section>
+
+<section class="card mt">
+    <h2>五步鉴谣法</h2>
+    <ol>
+    {% for m in methods %}
+        <li><strong>{{ m.title }}</strong>：{{ m.content }}</li>
+    {% endfor %}
+    </ol>
+</section>
+{% endblock %}
