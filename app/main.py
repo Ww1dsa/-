@@ -29,9 +29,9 @@ def startup_event() -> None:
 @app.get("/", response_class=HTMLResponse)
 def index(request: Request):
     return templates.TemplateResponse(
-        request,
         "index.html",
         {
+            "request": request,
             "text_result": None,
             "media_result": None,
         },
@@ -42,9 +42,9 @@ def index(request: Request):
 def detect_text(request: Request, rumor_text: str = Form("")):
     result = detect_rumor_text(rumor_text)
     return templates.TemplateResponse(
-        request,
         "index.html",
         {
+            "request": request,
             "text_result": result,
             "media_result": None,
             "rumor_text": rumor_text,
@@ -61,9 +61,9 @@ def detect_media(request: Request, media_file: UploadFile = File(...)):
         "saved_path": str(saved_path.name) if saved_path else None,
     }
     return templates.TemplateResponse(
-        request,
         "index.html",
         {
+            "request": request,
             "text_result": None,
             "media_result": media_result,
         },
@@ -72,7 +72,7 @@ def detect_media(request: Request, media_file: UploadFile = File(...)):
 
 @app.get("/report", response_class=HTMLResponse)
 def report_page(request: Request):
-    return templates.TemplateResponse(request, "report.html", {"success": False})
+    return templates.TemplateResponse("report.html", {"request": request, "success": False})
 
 
 @app.post("/report", response_class=HTMLResponse)
@@ -86,13 +86,13 @@ def create_report(
     report = Report(title=title.strip(), content=content.strip(), contact=contact.strip())
     db.add(report)
     db.commit()
-    return templates.TemplateResponse(request, "report.html", {"success": True})
+    return templates.TemplateResponse("report.html", {"request": request, "success": True})
 
 
 @app.get("/forum", response_class=HTMLResponse)
 def forum_page(request: Request, db: Session = Depends(get_db)):
     posts = db.query(ForumPost).order_by(ForumPost.id.desc()).all()
-    return templates.TemplateResponse(request, "forum.html", {"posts": posts})
+    return templates.TemplateResponse("forum.html", {"request": request, "posts": posts})
 
 
 @app.post("/forum")
@@ -115,9 +115,9 @@ def create_post(
 @app.get("/knowledge", response_class=HTMLResponse)
 def knowledge_page(request: Request):
     return templates.TemplateResponse(
-        request,
         "knowledge.html",
         {
+            "request": request,
             "patterns": RUMOR_PATTERNS,
             "channels": AUTHORITY_CHANNELS,
             "laws": LAW_ITEMS,

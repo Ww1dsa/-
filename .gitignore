@@ -6,5 +6,6 @@ __pycache__/
 .venv
 venv
 app.db
+.python_packages/
 app/uploads/*
 !.gitkeep

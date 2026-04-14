@@ -1,4 +1,5 @@
 from pathlib import Path
+from typing import Any, Dict, Optional, Tuple
 from uuid import uuid4
 
 from fastapi import UploadFile
@@ -17,7 +18,7 @@ RUMOR_KEYWORDS = {
 ALLOWED_EXTENSIONS = {".jpg", ".jpeg", ".png", ".gif", ".mp4", ".mov"}
 
 
-def detect_rumor_text(text: str) -> dict:
+def detect_rumor_text(text: str) -> Dict[str, Any]:
     cleaned = (text or "").strip()
     if not cleaned:
         return {
@@ -47,7 +48,7 @@ def detect_rumor_text(text: str) -> dict:
     }
 
 
-def save_media_file(file: UploadFile, upload_dir: Path) -> tuple[bool, str, Path | None]:
+def save_media_file(file: UploadFile, upload_dir: Path) -> Tuple[bool, str, Optional[Path]]:
     suffix = Path(file.filename or "").suffix.lower()
     if suffix not in ALLOWED_EXTENSIONS:
         return False, "文件类型不支持，请上传图片或视频文件。", None
