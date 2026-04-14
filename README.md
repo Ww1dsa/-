@@ -18,6 +18,14 @@
 4. 浏览器访问
    http://127.0.0.1:8000
 
+### 一键部署到云端（Render）
+1. 打开一键部署链接
+   https://render.com/deploy?repo=https://github.com/Ww1dsa/-.git
+2. 登录 Render，确认服务名后点击 Create Web Service。
+3. 等待构建完成后，会得到公网地址，可直接分享给别人访问。
+
+说明：当前默认使用 SQLite，免费实例重启可能导致数据丢失；要长期保存数据建议后续换 PostgreSQL。
+
 ### 目录说明
 - app/main.py：路由与页面入口
 - app/models.py：数据库模型
