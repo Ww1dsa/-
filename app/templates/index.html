@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rumor Detector</title>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>🔍 Rumor Detector</h1>
+      <p class="subtitle">Paste any text below to check whether it looks like a rumor or factual content.</p>
+    </header>
+
+    <main>
+      <form id="detect-form">
+        <div class="form-group">
+          <label for="text-input">Text to analyze</label>
+          <textarea
+            id="text-input"
+            name="text"
+            rows="6"
+            placeholder="e.g. Scientists discovered that drinking coffee causes instant blindness – share before deleted!"
+            required
+          ></textarea>
+        </div>
+        <button type="submit" id="submit-btn">Analyze</button>
+      </form>
+
+      <section id="result-section" class="hidden">
+        <div id="result-card" class="result-card">
+          <div class="result-icon" id="result-icon"></div>
+          <div class="result-label" id="result-label"></div>
+          <div class="result-details">
+            <div class="meter-row">
+              <span class="meter-label">Rumor probability</span>
+              <div class="meter-bar">
+                <div class="meter-fill" id="meter-fill"></div>
+              </div>
+              <span class="meter-value" id="meter-value"></span>
+            </div>
+            <div class="confidence-row">
+              <span>Model confidence: <strong id="confidence-value"></strong></span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="error-section" class="hidden">
+        <div class="error-card" id="error-message"></div>
+      </section>
+    </main>
+
+    <footer>
+      <p>Powered by FastAPI &amp; scikit-learn &nbsp;|&nbsp; For demonstration purposes only</p>
+    </footer>
+  </div>
+
+  <script src="/static/script.js"></script>
+</body>
+</html>
