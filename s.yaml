@@ -15,13 +15,17 @@ resources:
       service: ${vars.service.name}
       functionName: pyweb-rumor-detection
       description: FastAPI rumor detection web app
-      runtime: custom-container
-      timeout: 60
+      runtime: custom
+      handler: index.handler
+      timeout: 120
       memorySize: 512
       diskSize: 512
-      customContainerConfig:
-        image: ${env(IMAGE_URI)}
-        port: 9000
+      internetAccess: true
+      code: ./
+      customRuntimeConfig:
+        command:
+          - bash
+          - bootstrap
       triggers:
         - triggerName: httpTrigger
           triggerType: http
