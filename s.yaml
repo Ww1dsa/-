@@ -18,6 +18,7 @@ resources:
       runtime: custom
       handler: index.handler
       timeout: 120
+      cpu: 0.5
       memorySize: 512
       diskSize: 512
       internetAccess: true
